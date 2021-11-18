@@ -1,0 +1,28 @@
+{
+  "name": "team-portfolio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SnkrFr3sh/team-portfolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SnkrFr3sh/team-portfolio/issues"
+  },
+  "homepage": "https://github.com/SnkrFr3sh/team-portfolio#readme",
+  "dependencies": {
+    "email-validator": "^2.0.4",
+    "inquirer": "^8.2.0"
+  }
+}
