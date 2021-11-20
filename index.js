@@ -2,17 +2,17 @@ const inquirer = require('inquirer')
 const fs = require('fs')
 const Manager = require('./lib/Manager.js');
 const Engineer = require('./lib/Engineer.js');
-const Intern = require('./lib/Intern.js')
+const Intern = require('./lib/Intern.js');
+const Employee = require('./lib/Employee.js');
+// const generateHtml = require('./lib/generateHtml.js');
+
 // remember to require folders and files as you go
 
-let employees = [];
+let team = [];
+var cards = []
 
-const Employee = {
-    Engineer: 'Engineer',
-    Intern: 'Intern',
-    Manager: 'Manager',
 
-};
+
 
 //function to write answers to a file
 function writeToFile(fileName, data) {
@@ -27,40 +27,47 @@ function writeToFile(fileName, data) {
 function init() {
     console.log('Application Initializing');
     managerQuestions();
+
     //add write to file line
-    
+
 }
 
 const managerQuestions = () => {
     inquirer
         .prompt([
+            {
+                type: 'list',
+                message: 'Manager Use Only. What is your role on the team?',
+                name: 'role',
+                choices: [Manager, 'Not Manager']
+            },
 
             {
                 type: 'input',
                 message: "Team manager's name:",
-                name: "employeeName",
+                name: "name",
             },
             {
                 type: 'input',
                 message: "Team manager employee ID:",
-                name: "employeeID",
+                name: "id",
             },
             {
                 type: 'input',
                 message: "Team manager email:",
-                name: "employeeEmail",
-                validate: (email) => {
+                name: "email",
+                // validate: (email) => {
 
-                    valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
+                //     valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
 
-                    if (valid) {
-                        return true;
-                    } else {
-                        console.log(`
-                ** Please enter a valid email **`)
-                        return false;
-                    }
-                }
+                //     if (valid) {
+                //         return true;
+                //     } else {
+                //         console.log(`
+                // ** Please enter a valid email **`)
+                //         return false;
+                //     }
+                // }
             },
             {
                 type: 'input',
@@ -76,18 +83,23 @@ const managerQuestions = () => {
         ])
         .then((answers) => {
             const manager = new Manager(
-                answers.employeeName,
-                answers.employeeID,
-                answers.employeeEmail,
-                answers.officeNumber
+                answers.name,
+                answers.id,
+                answers.email,
+                answers.role,
+                answers.officeNumber,
             );
-            employees.push(manager);
-            console.log(manager);
+            team.push(manager);
+            //console.log(manager);
 
             if (answers.addTeamInfo === true) {
                 console.log('Please as team member information.')
                 employeeQuestions()
-            };
+            }
+            else
+                console.log('this is the team', team)
+            // makeCards()
+
 
 
         });
@@ -102,34 +114,34 @@ const employeeQuestions = () => {
             {
                 type: 'input',
                 message: 'Employee Name:',
-                name: 'employeeName'
+                name: 'name'
             },
             {
                 type: 'input',
                 message: 'Employee ID:',
-                name: 'employeeID',
+                name: 'id',
             },
             {
                 type: 'imput',
                 message: 'Employee Email:',
-                name: 'employeeEmail',
-                validate: (email) => {
+                name: 'email',
+                // validate: (email) => {
 
-                    valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
+                //     valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
 
-                    if (valid) {
-                        return true;
-                    } else {
-                        console.log(`
-                    ** Please enter a valid email **`)
-                        return false;
-                    }
-                }
+                //     if (valid) {
+                //         return true;
+                //     } else {
+                //         console.log(`
+                //     ** Please enter a valid email **`)
+                //         return false;
+                //     }
+                // }
             },
             {
                 type: 'list',
                 message: 'Role on team:',
-                name: 'employeeType',
+                name: 'role',
                 choices: [Engineer, Intern]
             },
             //intern questions
@@ -137,14 +149,14 @@ const employeeQuestions = () => {
                 type: 'input',
                 message: 'What school do you attend?',
                 name: 'school',
-                when: (answers) => answers.employeeType === 'Intern',
+                when: (answers) => answers.role === 'Intern',
             },
             //engineer questions
             {
                 type: 'input',
                 message: 'Enter your GitHub username: ',
                 name: 'github',
-                when: (answers) => answers.employeeType === 'Engineer',
+                when: (answers) => answers.role === 'Engineer',
             },
             {
                 type: 'confirm',
@@ -155,34 +167,56 @@ const employeeQuestions = () => {
 
         ])
         .then((answers) => {
-            if (answers.employeeType === 'Intern') {
+            if (answers.role === 'Intern') {
                 const intern = new Intern(
-                    answers.employeeName,
-                    answers.employeeID,
-                    answers.employeeEmail,
+                    answers.name,
+                    answers.id,
+                    answers.email,
+                    answers.role,
                     answers.school,
                 );
-                employees.push(intern);
-                console.log(intern);
+                team.push(intern);
+                //console.log(intern);
             }
-            if (answers.employeeType === 'Engineer') {
+            if (answers.role === 'Engineer') {
                 const engineer = new Engineer(
-                    answers.employeeName,
-                    answers.employeeID,
-                    answers.employeeEmail,
+                    answers.name,
+                    answers.id,
+                    answers.email,
+                    answers.role,
                     answers.github,
                 );
-                employees.push(engineer);
-                console.log(engineer);
+                team.push(engineer);
+                //console.log(engineer);
             }
 
             if (answers.addEmployee === true) {
                 console.log('Add new team member information.')
                 employeeQuestions()
-            } else (console.log('employees', employees))
-        });
+            }
+            else console.log('ALL TEAM INFO', team)
+                for (let i = 0; i < team.length; i++) {
+                    if (team[i].role === 'Manager') {
+                        cards.push(`<h1>  Hi I'm ${team[i].name}, the team manager</h1>`)
+                    } else if (team[i].role === 'Intern') {
+                        cards.push(`<h1>Our intern,${team[i].name} is great!</h1>`)
+                    } else if (team[i].role === 'Engineer') {
+                        cards.push(`<h1>Shout out to Enginner ${team[i].name}!</h1>`)
+                    }
+            
+                } console.log('test cards', cards)
+            
+            
+
+            // makeCards(team); 
+
+
+        })
 
 }
 
+
+
 init()
+
 // set classes and subclasses?

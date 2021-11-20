@@ -23,6 +23,7 @@
   "homepage": "https://github.com/SnkrFr3sh/team-portfolio#readme",
   "dependencies": {
     "email-validator": "^2.0.4",
+    "express": "^4.17.1",
     "inquirer": "^8.2.0"
   }
 }
