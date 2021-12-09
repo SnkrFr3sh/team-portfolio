@@ -286,7 +286,7 @@ const htmlCombined = htmlOpen + cards + htmlClose;
 console.log("html combined",htmlCombined)
 
 fs.writeFile(
-    `./dist/GeneratedTeamProfile.html`,
+    `./dist/TeamProfile.html`,
     `${htmlCombined}`,
     (err) => err ? console.error(err) : console.log("html generated")
 );
