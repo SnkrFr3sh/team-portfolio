@@ -6,6 +6,11 @@
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
 
 
+<img width="658" alt="Screen Shot 2021-12-23 at 9 28 19 AM" src="https://user-images.githubusercontent.com/87551856/147274550-ed2ef4a3-a563-4ddc-a81b-54171c60bf08.png">
+
+<img width="949" alt="Screen Shot 2021-12-23 at 9 28 38 AM" src="https://user-images.githubusercontent.com/87551856/147274562-53be6ec4-ece9-47f3-a9a4-bbb486d37732.png">
+
+
 
 ## Description
 This app allows you to create a team portfolio webstie based on the information a you input of your team.
